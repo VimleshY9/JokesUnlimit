@@ -1,5 +1,6 @@
 package com.vimlesh.jokesunlimit.ui
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Timer
 
-class JokesViewModel(private val repository:JokesRepository ):ViewModel(){
+class JokesViewModel(private val context: Context, private val repository:JokesRepository ):ViewModel(){
     private val _jokesLiveData = MutableLiveData<JokesModule?>()
     val jokesLiveData:LiveData<JokesModule?> = _jokesLiveData
     private val _jokesLiveDataList = MutableLiveData<List<JokesEntity>>()
@@ -54,7 +55,11 @@ class JokesViewModel(private val repository:JokesRepository ):ViewModel(){
     }
 
    private fun initiateACallOfFetchingAJoke(){
-        Common.fetchAJokeInInterval(timer) { fetchAJoke() }
+       if (Common.isInternetAvailable(context = context)) {
+           Common.fetchAJokeInInterval(timer) { fetchAJoke() }
+       } else {
+           error.postValue("NO Active network connection is available")
+       }
    }
 
 }

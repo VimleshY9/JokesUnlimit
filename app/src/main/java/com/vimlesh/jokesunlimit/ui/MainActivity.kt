@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         }
         jokesViewModel.error.observe(this){
            Toast.makeText(applicationContext, it, Toast.LENGTH_LONG).show()
+            textView.text = resources.getString(R.string.error_message)
         }
     }
 

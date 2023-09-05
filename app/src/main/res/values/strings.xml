@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JokesUnlimit</string>
-</resources>
+    <string name="error_message">No Active network connection is available, please connect to any active network and restart the app again</string>
+    </resources>
